@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-heading: "Orbitron", sans-serif;
+  --font-body: "Rajdhani", sans-serif;
+
+  --color-background: #020408;
+  --color-surface: #050b14;
+  --color-primary: #00f5ff;
+  --color-accent: #ff006e;
+  --color-text: #e0f7ff;
+  --color-muted: #3a6b7a;
+
+  --animate-glitch: glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+  --animate-scanline: scanline 8s linear infinite;
+  --animate-flicker: flicker 0.15s infinite;
+  --animate-neon-pulse: neon-pulse 1.5s ease-in-out infinite alternate;
+
+  @keyframes glitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+  }
+
+  @keyframes scanline {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+  }
+
+  @keyframes flicker {
+    0% { opacity: 0.97; }
+    5% { opacity: 0.92; }
+    10% { opacity: 0.98; }
+    15% { opacity: 0.93; }
+    20% { opacity: 0.99; }
+    25% { opacity: 0.94; }
+    100% { opacity: 1; }
+  }
+
+  @keyframes neon-pulse {
+    from { text-shadow: 0 0 5px var(--color-primary), 0 0 10px var(--color-primary), 0 0 15px var(--color-primary); }
+    to { text-shadow: 0 0 10px var(--color-primary), 0 0 20px var(--color-primary), 0 0 30px var(--color-primary), 0 0 40px var(--color-primary); }
+  }
+}
+
+:root {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-body);
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background-color: var(--color-background);
+}
+
+/* Effect *10 - CRT & Scanlines Overlay */
+.crt-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+              linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  background-size: 100% 4px, 3px 100%;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.scanline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(to bottom, transparent, rgba(0, 245, 255, 0.1), transparent);
+  animation: var(--animate-scanline);
+  pointer-events: none;
+  z-index: 9998;
+}
+
+.glitch-text:hover {
+  animation: var(--animate-glitch);
+  color: var(--color-accent);
+  text-shadow: 2px 0 var(--color-primary), -2px 0 var(--color-accent);
+}
+
+.glass-panel {
+  background: rgba(5, 11, 20, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 245, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8),
+              inset 0 0 15px rgba(0, 245, 255, 0.1);
+}
+
+.neon-border {
+  border: 1px solid var(--color-primary);
+  box-shadow: 0 0 10px var(--color-primary),
+              inset 0 0 10px var(--color-primary);
+}
+
+.neon-text {
+  color: var(--color-primary);
+  text-shadow: 0 0 5px var(--color-primary),
+               0 0 10px var(--color-primary);
+}
+
+.neon-text-accent {
+  color: var(--color-accent);
+  text-shadow: 0 0 5px var(--color-accent),
+               0 0 10px var(--color-accent);
+}
